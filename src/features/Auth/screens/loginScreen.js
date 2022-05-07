@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { View, Text, Button } from 'react-native';
-import { TextInput } from 'react-native-web';
+import { SafeAreaView, TextInput } from 'react-native-web';
 import FormInput from '../components/FormInput';
 
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import authAPI from '../../../api/authAPI';
+import { loginThunk } from '../authSlice';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 const validationSchema = yup.object().shape({
   username: yup.string().required('Please enter your name'),
@@ -16,21 +18,25 @@ const validationSchema = yup.object().shape({
 });
 
 const LoginScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+
   const [userInfo, setUserInfo] = useState({
     username: '',
     password: '',
   });
 
   const handleSubmit = async (userInfo) => {
-    const response = await authAPI.login(userInfo);
-    console.log(response);
-    if(response.success) {
-        navigation.navigate('Home')
+    try {
+      const result = await dispatch(loginThunk(userInfo));
+      const data = unwrapResult(result);
+      if(data.success) navigation.navigate('Home')
+    } catch (error) {
+      console.log(error);
     }
   };
 
   return (
-    <View>
+    <SafeAreaView>
       <Text>Login</Text>
       <View>
         <Formik
@@ -73,7 +79,7 @@ const LoginScreen = ({ navigation }) => {
           }}
         </Formik>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

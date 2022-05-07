@@ -12,28 +12,10 @@ const SearchBar = () => {
   )
 }
 
-const Header = () => {
+const Header = ({screenName}) => {
   return (
-    <SafeAreaView
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        backgroundColor: '#504DE4',
-        height: '125px',
-        margin: '10px',
-        borderTopLeftRadius: '50px',
-        borderTopRightRadius: '50px',
-        paddingLeft: '20px',
-        paddingRight: '20px'
-      }}
-    >
-      <View>
-        <SearchBar />
-      </View>
-      <View>
-        <TouchableOpacity></TouchableOpacity>
-      </View>
+    <SafeAreaView>
+      
     </SafeAreaView>
   );
 };

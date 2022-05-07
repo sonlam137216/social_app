@@ -1,11 +1,13 @@
 import React from 'react';
+import { SafeAreaView, Text } from 'react-native-web';
 import Header from '../../../shareComponents/Header';
 
 const Home = () => {
   return (
-    <div>
+    <SafeAreaView>
       <Header />
-    </div>
+      
+    </SafeAreaView>
   );
 };
 

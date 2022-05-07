@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 10,
-    borderRadius: 10
+    borderRadius: 10,
   },
   contentStyle: {
     flex: 3,
@@ -105,11 +105,11 @@ const styles = StyleSheet.create({
     elevation: 4,
     borderRadius: 20,
     padding: 10,
-    paddingLeft: 40
+    paddingLeft: 40,
   },
   name: {
-      fontSize: 16,
-      color: '#5E5858',
-      fontWeight: 'bold'
-  }
+    fontSize: 16,
+    color: '#5E5858',
+    fontWeight: 'bold',
+  },
 });
