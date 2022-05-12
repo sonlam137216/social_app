@@ -4,11 +4,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LoginScreen from './src/features/Auth/screens/loginScreen';
 import store from './src/app/store';
-import Home from './src/features/Home/screens/Home';
 // import RegisterScreen from './src/features/Auth/screens/registerScreen';
 import Chat from './src/features/Chat/screens/chatScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Notification from './src/features/Notification/screens/notificationScreen';
+import HomeStackScreen from './src/features/Home/screens/HomeStackScreen';
+import NewPost from './src/features/Home/components/NewPost';
 
 const Tab = createBottomTabNavigator();
 
@@ -41,11 +42,11 @@ const RootNavigation = () => {
                     tabBarOptions={{
                         activeTintColor: 'blue',
                         inactiveTintColor: 'black',
-                        labelStyle: { paddingBottom: 10, fontSize: 10 },
+                        labelStyle: { paddingBottom: 10, fontSize: 13 },
                         style: { padding: 10, height: 70 },
                     }}
                 >
-                    <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
+                    <Tab.Screen name="Home" component={NewPost} options={{ headerShown: false }} />
                     <Tab.Screen name="Chat" component={Chat} options={{ headerShown: false }} />
                     <Tab.Screen name="Notification" component={Notification} options={{ headerShown: false }} />
                     <Tab.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
