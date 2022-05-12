@@ -4,11 +4,14 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LoginScreen from './src/features/Auth/screens/loginScreen';
 import store from './src/app/store';
+import Home from './src/features/Home/screens/Home';
 // import RegisterScreen from './src/features/Auth/screens/registerScreen';
+
 import Chat from './src/features/Chat/screens/chatScreen';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import Notification from './src/features/Notification/screens/notificationScreen';
-import HomeStackScreen from './src/features/Home/screens/HomeStackScreen';
+import RegisterScreen from './src/features/Auth/screens/registerScreen';
+
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import NewPost from './src/features/Home/components/NewPost';
 
 const Tab = createBottomTabNavigator();
