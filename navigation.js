@@ -1,18 +1,24 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import LoginScreen from './src/features/Auth/screens/loginScreen';
-import store from './src/app/store';
-import Home from './src/features/Home/screens/Home';
+import React from "react";
+import { Provider } from "react-redux";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import LoginScreen from "./src/features/Auth/screens/loginScreen";
+import store from "./src/app/store";
+import Home from "./src/features/Home/screens/Home";
 // import RegisterScreen from './src/features/Auth/screens/registerScreen';
-import Chat from './src/features/Chat/screens/chatScreen';
+
+import Chat from "./src/features/Chat/screens/chatScreen";
+import Notification from "./src/features/Notification/screens/notificationScreen";
+import RegisterScreen from "./src/features/Auth/screens/registerScreen";
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Notification from './src/features/Notification/screens/notificationScreen';
+
+
 
 const Tab = createBottomTabNavigator();
 
 const RootNavigation = () => {
+
     return (
         <Provider store={store}>
             <NavigationContainer>
@@ -53,6 +59,7 @@ const RootNavigation = () => {
             </NavigationContainer>
         </Provider>
     );
+
 };
 
 export default RootNavigation;
