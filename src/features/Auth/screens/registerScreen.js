@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, Button, StyleSheet, Image, Pressable } from "react-native";
 import { SafeAreaView, TextInput } from "react-native-web";
 import FormInput from "../components/FormInput";
 
@@ -9,6 +9,8 @@ import * as yup from "yup";
 import { loginThunk } from "../authSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
 import Header from "../../../shareComponents/Header";
+
+import Icon from "react-native-vector-icons/AntDesign";
 
 const validationSchema = yup.object().shape({
   username: yup.string().required("Please enter your name"),
@@ -40,6 +42,12 @@ const RegisterScreen = ({ navigation }) => {
     <SafeAreaView>
       <View style={styles.container}>
         <Header screenName={"Register"} />
+        <Image
+          style={styles.logo}
+          source={{
+            uri: "https://res.cloudinary.com/wjbucloud/image/upload/v1651936335/zewyjllqejb1xrn23ghe.png?fbclid=IwAR2eCVVEB4vYVMWVXW2wV70M_w40D-c9JkDJQ2ScFMP7AFJVeqtPq9n8XLU",
+          }}
+        ></Image>
         <View style={styles.formContainer}>
           <Formik
             initialValues={userInfo}
@@ -70,32 +78,41 @@ const RegisterScreen = ({ navigation }) => {
                     value={password}
                     label=""
                     error={touched.password && errors.password}
+                    placeholder="Enter your email"
+                    onChangeText={handleChange("password")}
+                    onBlur={handleBlur("password")}
+                    secureTextEntry
+                  />
+                  <FormInput
+                    value={password}
+                    label=""
+                    error={touched.password && errors.password}
                     placeholder="Enter your password"
                     onChangeText={handleChange("password")}
                     onBlur={handleBlur("password")}
                     secureTextEntry
                   />
 
-                  <Text
-                    style={styles.forgotPass}
-                    onPress={() => navigation.navigate("Home")}
-                  >
-                    Quên mật khẩu?
-                  </Text>
-                  <Text style={styles.rememberPass}>Nhớ mật khẩu</Text>
-                  <Button
-                    title="Login"
-                    style={styles.loginButton}
-                    onPress={handleSubmit}
+                  <FormInput
+                    value={password}
+                    label=""
+                    error={touched.password && errors.password}
+                    placeholder="Confirm you password"
+                    onChangeText={handleChange("password")}
+                    onBlur={handleBlur("password")}
+                    secureTextEntry
                   />
+                  <Pressable style={styles.button}>
+                    <Text style={styles.text}>Login</Text>
+                  </Pressable>
                 </>
               );
             }}
           </Formik>
           <Text style={styles.orText}>Or</Text>
           <View style={styles.buttonGroup}>
-            <Button title="Facebook" />
-            <Button title="Google" />
+            <Icon name="facebook-square" size={30}></Icon>
+            <Icon name="google" size={30}></Icon>
           </View>
         </View>
       </View>
@@ -127,6 +144,24 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
 
+  button: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: "#504DE4",
+    borderRadius: 20,
+  },
+  text: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: "bold",
+    letterSpacing: 0.25,
+    color: "white",
+  },
+
   buttonGroup: {
     flexDirection: "row",
     justifyContent: "space-around",
@@ -136,6 +171,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 50,
     marginTop: 50,
+  },
+
+  logo: {
+    width: 100,
+    height: 100,
+    borderRadius: "50%",
+    position: "relative",
+    left: "35%",
   },
 });
 
