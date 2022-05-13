@@ -27,7 +27,7 @@ const auth = createSlice({
       state.loading = true;
     },
     [loginThunk.fulfilled]: (state, action) => {
-      state.username = action.payload.user.username;
+      return {...state, ...action.payload.user}
     },
     [loginThunk.rejected]: (state, action) => {
       state.loading = false;

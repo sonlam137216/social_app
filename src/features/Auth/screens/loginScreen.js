@@ -30,7 +30,8 @@ const LoginScreen = ({ navigation }) => {
     try {
       const result = await dispatch(loginThunk(userInfo));
       const data = unwrapResult(result);
-      if (data.success) navigation.navigate("Home");
+      if (data.success) navigation.navigate('Home');
+
     } catch (error) {
       console.log(error);
     }
