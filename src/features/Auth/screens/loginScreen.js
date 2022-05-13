@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { View, Text, Button, StyleSheet, Pressable, Image } from "react-native";
 import { SafeAreaView, TextInput } from "react-native-web";
 import FormInput from "../components/FormInput";
@@ -30,6 +31,7 @@ const LoginScreen = ({ navigation }) => {
     try {
       const result = await dispatch(loginThunk(userInfo));
       const data = unwrapResult(result);
+
       if (data.success) navigation.navigate('Home');
 
     } catch (error) {
@@ -90,6 +92,7 @@ const LoginScreen = ({ navigation }) => {
                     Quên mật khẩu?
                   </Text>
                   <Text style={styles.rememberPass}>Nhớ mật khẩu</Text>
+
                   <Pressable style={styles.button}>
                     <Text style={styles.text}>Register</Text>
                   </Pressable>
