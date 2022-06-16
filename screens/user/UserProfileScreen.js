@@ -194,7 +194,7 @@ const UserProfileScreen = (props) => {
             <Content refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={loadUsers} />}>
                 <View style={{ paddingTop: 20 }}>
                     {/** User Photo Stats**/}
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         {/**User photo takes 1/3rd of view horizontally **/}
                         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}>
                             <Image
@@ -281,40 +281,74 @@ const UserProfileScreen = (props) => {
                             {/**End edit profile**/}
                         </View>
                     </View>
+                    <View style={{ paddingBottom: 10, paddingTop: 10 }}>
+                        <View style={{ paddingHorizontal: 10 }}>
+                            <Text style={{ fontWeight: 'bold', fontSize: 18 }}>
+                                {currUser.name + ' '}
+                                {VerifiedUser.verifiedUsersId.includes(currUser._id) && (
+                                    <Octicons name="verified" size={20} color={Colors.brightBlue} />
+                                )}
+                            </Text>
+
+                            {currUser.about && <Text style={{ marginRight: 40 }}>{currUser.about} </Text>}
+                            {/* <Text>{currUser.email}</Text> */}
+                        </View>
+                    </View>
 
                     {userId === loggedInUserId ? (
-                        <View style={{ alignItems: 'flex-start', paddingTop: 10 }}>
+                        <View style={{ alignItems: 'flex-start', paddingBottom: 10 }}>
                             <View style={{ flexDirection: 'row' }}>
-                                <Button
-                                    onPress={() => props.navigation.navigate('EditProfile')}
-                                    bordered
-                                    dark
+                                <TouchableOpacity
                                     style={{
-                                        flex: 1,
-                                        marginLeft: 10,
-                                        marginRight: 10,
-                                        justifyContent: 'center',
                                         height: 30,
+                                        marginHorizontal: 10,
+                                        flex: 1,
+                                        marginBottom: 10,
                                     }}
                                 >
-                                    <Text>Edit Profile</Text>
-                                </Button>
+                                    <Text
+                                        onPress={() => props.navigation.navigate('EditProfile')}
+                                        style={{
+                                            borderColor: 'black',
+                                            borderStyle: 'solid',
+                                            borderWidth: 1,
+                                            width: '100%',
+                                            height: '100%',
+                                            borderRadius: 5,
+                                            alignSelf: 'center',
+                                            textAlign: 'center',
+                                            paddingTop: 5,
+                                        }}
+                                    >
+                                        Edit Profile
+                                    </Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                     ) : (
                         <View style={{ flexDirection: 'row' }}>
-                            <View style={{ flex: 1, paddingTop: 10 }}>
-                                <TouchableOpacity style={{ flexDirection: 'row' }}>
-                                    <Button
+                            <View style={{ flex: 1 }}>
+                                <TouchableOpacity
+                                    style={{
+                                        height: 30,
+                                        marginRight: 10,
+                                        marginLeft: 5,
+                                        flex: 1,
+                                        marginBottom: 10,
+                                    }}
+                                >
+                                    <Text
                                         onPress={followUserHandler}
-                                        bordered
-                                        dark
                                         style={{
-                                            flex: 2,
-                                            marginLeft: 10,
-                                            marginRight: 5,
-                                            justifyContent: 'center',
-                                            height: 30,
+                                            borderColor: 'black',
+                                            borderStyle: 'solid',
+                                            borderWidth: 1,
+                                            width: '100%',
+                                            height: '100%',
+                                            borderRadius: 5,
+                                            alignSelf: 'center',
+                                            textAlign: 'center',
+                                            paddingTop: 5,
                                         }}
                                     >
                                         {checkFollow(currUser._id) ? (
@@ -334,43 +368,39 @@ const UserProfileScreen = (props) => {
                                                 )}
                                             </>
                                         )}
-                                    </Button>
+                                    </Text>
                                 </TouchableOpacity>
                             </View>
-                            <View style={{ flex: 1, paddingTop: 10 }}>
-                                <TouchableOpacity style={{ flexDirection: 'row' }}>
-                                    <Button
+                            <View style={{ flex: 1 }}>
+                                <TouchableOpacity
+                                    style={{
+                                        height: 30,
+                                        marginRight: 10,
+                                        marginLeft: 5,
+                                        flex: 1,
+                                        marginBottom: 10,
+                                    }}
+                                >
+                                    <Text
                                         onPress={moveToChatHandle}
-                                        bordered
-                                        dark
                                         style={{
-                                            flex: 2,
-                                            marginLeft: 5,
-                                            marginRight: 10,
-                                            justifyContent: 'center',
-                                            height: 30,
+                                            borderColor: 'black',
+                                            borderStyle: 'solid',
+                                            borderWidth: 1,
+                                            width: '100%',
+                                            height: '100%',
+                                            borderRadius: 5,
+                                            alignSelf: 'center',
+                                            textAlign: 'center',
+                                            paddingTop: 5,
                                         }}
                                     >
-                                        <Text>Message</Text>
-                                    </Button>
+                                        Message
+                                    </Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
                     )}
-
-                    <View style={{ paddingBottom: 10, paddingTop: 10 }}>
-                        <View style={{ paddingHorizontal: 10 }}>
-                            <Text style={{ fontWeight: 'bold', fontSize: 18 }}>
-                                {currUser.name + ' '}
-                                {VerifiedUser.verifiedUsersId.includes(currUser._id) && (
-                                    <Octicons name="verified" size={20} color={Colors.brightBlue} />
-                                )}
-                            </Text>
-
-                            {currUser.about && <Text>{currUser.about} </Text>}
-                            <Text>{currUser.email}</Text>
-                        </View>
-                    </View>
                 </View>
 
                 <View>{renderSection()}</View>
@@ -382,13 +412,16 @@ const UserProfileScreen = (props) => {
 export const screenOptions = (navData) => {
     const routeParams = navData.route.params ? navData.route.params : {};
     if (!routeParams.name) {
+        const loggedInUserId = useSelector((state) => state.auth.user._id);
+        const allUsers = useSelector((state) => state.users.allUsers);
+        const loggedInUser = allUsers.filter((u) => u._id === loggedInUserId)[0];
         return {
-            headerTitle: routeParams.name ? routeParams.name : 'Profile',
+            headerTitle: routeParams.name ? routeParams.name : `${loggedInUser.name}`,
             headerRight: () => <MenuItem />,
         };
     } else {
         return {
-            headerTitle: routeParams.name ? routeParams.name : 'Profile',
+            headerTitle: routeParams.name ? routeParams.name : `Profile`,
         };
     }
 };
