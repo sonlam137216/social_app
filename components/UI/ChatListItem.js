@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
         padding: 16,
         flexDirection: 'row',
         borderBottomWidth: 1,
-        borderColor: "#FFFFFF",
+        borderColor: "#EAEAEA",
         alignItems: 'flex-start',
     },
     avatar: {
@@ -113,8 +113,9 @@ const styles = StyleSheet.create({
         color: "#696969"
     },
     name: {
-        fontSize: 16,
-        color: "#1E90FF"
+        fontSize: 18,
+        color: "#504DE4",
+        fontWeight: "bold"
     }
 })
 

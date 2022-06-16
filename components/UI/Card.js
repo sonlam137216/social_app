@@ -125,7 +125,8 @@ const Card = (props) => {
               />
               <Text
                 style={{
-                  fontSize: 15,
+                  fontSize: 17,
+                  fontWeight: 'bold',
                   alignSelf: 'center',
                   paddingHorizontal: 10,
                   paddingVertical: 5,
@@ -201,7 +202,7 @@ const Card = (props) => {
                   </Text>
                 ) : (
                   <Text style={styles.description}>
-                    {post.body.substring(0, 30)}
+                    {post.body.substring(0, 60)}
                     <Text
                       style={{ color: Colors.brightBlue }}
                       onPress={() => setShowFullBody((prevState) => !prevState)}
@@ -341,7 +342,6 @@ const Card = (props) => {
                 <Text style={styles.socialBarLabel}>Delete</Text>
               </TouchableOpacity>
             </View>
-            
           </View>
         )}
       </View>
@@ -351,20 +351,20 @@ const Card = (props) => {
 
 const styles = StyleSheet.create({
   userIcon: {
-    height: 30,
-    width: 30,
+    height: 40,
+    width: 40,
     borderRadius: 30,
   },
   card: {
     width: '100%',
-    elevation: 3,
+    elevation: 1,
     shadowColor: 'black',
 
     shadowOffset: {
-      width: 2,
-      height: 5,
+      width: 1,
+      height: 2,
     },
-    shadowRadius: 4,
+    shadowRadius: 2,
     marginVertical: 8,
     backgroundColor: 'white',
   },
@@ -413,12 +413,14 @@ const styles = StyleSheet.create({
   },
   /******** card components **************/
   title: {
+    display: 'none',
     fontSize: 15,
     flex: 1,
   },
   description: {
     fontSize: 15,
-    color: '#888',
+    color: '#484848',
+    lineHeight: 21,
     flex: 1,
     marginTop: 5,
     marginBottom: 5,
@@ -450,25 +452,25 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     paddingBottom: 3,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.grayColor
+    borderBottomColor: Colors.grayColor,
   },
   socialBarlabel: {
     marginLeft: 20,
   },
   socialBarButton: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-
   },
   postActions: {
     position: 'absolute',
-    top: 50,
-    right: 30,
+    top: 40,
+    right: 20,
     borderTopColor: '#c2c2c2',
     borderTopWidth: 1,
     flexDirection: 'column',
-    padding: 15,
+    paddingVertical: 15,
+    paddingHorizontal: 10,
+    borderRadius: 5,
     backgroundColor: 'white',
     shadowColor: '#000',
     shadowOffset: {
