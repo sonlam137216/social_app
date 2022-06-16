@@ -19,7 +19,7 @@ import Colors from '../../constants/Colors';
 import ENV from '../../env';
 import { showMessage } from 'react-native-flash-message';
 
-const EditProfileScreen = (props) => {
+const ChangePasswordScreen = (props) => {
     const loggedUser = useSelector((state) => state.auth.user);
     const users = useSelector((state) => state.users.allUsers);
     const userDetails = users.filter((u) => u._id === loggedUser._id)[0];
@@ -27,6 +27,7 @@ const EditProfileScreen = (props) => {
     const [name, setName] = useState(userDetails.name);
     const [email, setEmail] = useState(userDetails.email);
     const [about, setAbout] = useState(userDetails.about);
+    const [currentPassword, setCurrentPassword] = useState('');
     const [password, setPassword] = useState('');
 
     const [editImage, setEditImage] = useState({
@@ -160,17 +161,15 @@ const EditProfileScreen = (props) => {
                             <Text style={styles.msgText}> {error} </Text>
                         </View>
                     )} */}
-                    <View style={styles.labelContainer}>
+                    {/* <View style={styles.labelContainer}>
                         <Text style={styles.labelText}>Profile Photo</Text>
                     </View>
 
-                    <View style={{ marginBottom: -40 }}>
-                        <ImgPicker
-                            onImageTaken={imagePickedHandler}
-                            editImage={editImage}
-                            previousUpdate={previousUpdate}
-                        />
-                    </View>
+                    <ImgPicker
+                        onImageTaken={imagePickedHandler}
+                        editImage={editImage}
+                        previousUpdate={previousUpdate}
+                    />
 
                     <View style={styles.labelContainer}>
                         <Text style={styles.labelText}>Name</Text>
@@ -185,7 +184,7 @@ const EditProfileScreen = (props) => {
                         />
                     </View>
 
-                    {/* <View style={styles.labelContainer}>
+                    <View style={styles.labelContainer}>
                         <Text style={styles.labelText}>Email</Text>
                     </View>
                     <View style={styles.inputContainer}>
@@ -196,7 +195,7 @@ const EditProfileScreen = (props) => {
                             value={email}
                             onChangeText={(text) => setEmail(text)}
                         />
-                    </View> */}
+                    </View>
 
                     <View style={styles.labelContainer}>
                         <Text style={styles.labelText}>About</Text>
@@ -209,20 +208,34 @@ const EditProfileScreen = (props) => {
                             value={about}
                             onChangeText={(text) => setAbout(text)}
                         />
-                    </View>
-
-                    {/* <View style={styles.labelContainer} >
-                        <Text style={styles.labelText} >Password</Text>
+                    </View> */}
+                    <View style={styles.labelContainer}>
+                        <Text style={styles.labelText}>Current Password</Text>
                     </View>
                     <View style={styles.inputContainer}>
-                        <TextInput style={styles.inputs}
-                            placeholder="Password"
+                        <TextInput
+                            style={styles.inputs}
+                            placeholder="Current Password"
                             secureTextEntry={true}
-                            underlineColorAndroid='transparent'
-                            value={password}
-                            onChangeText={(text) => setPassword(text) }
+                            underlineColorAndroid="transparent"
+                            value={currentPassword}
+                            onChangeText={(text) => setCurrentPassword(text)}
                         />
-                    </View> */}
+                    </View>
+
+                    <View style={styles.labelContainer}>
+                        <Text style={styles.labelText}>New Password</Text>
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            style={styles.inputs}
+                            placeholder="New Password"
+                            secureTextEntry={true}
+                            underlineColorAndroid="transparent"
+                            value={password}
+                            onChangeText={(text) => setPassword(text)}
+                        />
+                    </View>
 
                     <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={updatePost}>
                         {isLoading ? (
@@ -238,7 +251,7 @@ const EditProfileScreen = (props) => {
 };
 
 export const screenOptions = {
-    headerTitle: 'Edit Profile',
+    headerTitle: 'Change Password',
 };
 
 const styles = StyleSheet.create({
@@ -246,7 +259,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 10,
+        marginTop: 40,
     },
     container: {
         flex: 1,
@@ -295,7 +308,7 @@ const styles = StyleSheet.create({
         // borderBottomWidth: 1,
         width: 300,
         height: 45,
-        marginBottom: 10,
+        marginBottom: 20,
         flexDirection: 'row',
         alignItems: 'center',
         shadowColor: '#808080',
@@ -335,11 +348,10 @@ const styles = StyleSheet.create({
         shadowRadius: 12.35,
 
         elevation: 19,
-        marginTop: 10,
     },
     loginText: {
         color: 'white',
     },
 });
 
-export default EditProfileScreen;
+export default ChangePasswordScreen;
