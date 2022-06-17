@@ -413,11 +413,15 @@ const styles = StyleSheet.create({
   },
   /******** card components **************/
   title: {
-    display: 'none',
     fontSize: 15,
+    color: '#484848',
+    lineHeight: 21,
     flex: 1,
+    marginTop: 5,
+    marginBottom: 5,
   },
   description: {
+    display: "none",
     fontSize: 15,
     color: '#484848',
     lineHeight: 21,
