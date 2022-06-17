@@ -30,7 +30,7 @@ const AddPostScreen = (props) => {
     const clearForm = () => {
         setClearPickedImage(true);
         setTitle('');
-        setBody('');
+        setBody('Hehe');
         setBase64Data('');
         setImageType('');
         setIsLoading(false);
@@ -68,15 +68,6 @@ const AddPostScreen = (props) => {
             });
             return false;
         }
-        if (!body || body.length === 0) {
-            showMessage({
-                message: 'Please enter a body.',
-                type: 'danger',
-                duration: 3000,
-                icon: { icon: 'danger', position: 'left' },
-            });
-            return false;
-        }
         if (base64Data.length === 0) {
             showMessage({
                 message: 'Please select an image to post.',
@@ -95,7 +86,7 @@ const AddPostScreen = (props) => {
         if (validatePost()) {
             console.log('VALID POST');
             try {
-                await dispatch(postActions.createPost(title, body, base64Data, imageType));
+                await dispatch(postActions.createPost(title, 'hehe', base64Data, imageType));
                 clearForm();
                 props.navigation.navigate('AllPosts');
                 showMessage({

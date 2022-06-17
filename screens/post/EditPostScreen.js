@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, ActivityIndicator, KeyboardAvoidingView, ScrollView } from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    TextInput,
+    TouchableOpacity,
+    Image,
+    ActivityIndicator,
+    KeyboardAvoidingView,
+    ScrollView,
+} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import * as postActions from '../../store/actions/posts';
@@ -7,17 +17,14 @@ import ImgPicker from '../../components/app/ImgPicker';
 import Colors from '../../constants/Colors';
 
 import ENV from '../../env';
-import { showMessage } from "react-native-flash-message";
+import { showMessage } from 'react-native-flash-message';
 
 const EditPostScreen = (props) => {
-
     const postId = props.route.params.postId;
-    const selectedPost = useSelector(state => 
-        state.posts.allPosts.find(post => post._id === postId)
-    );
-    
+    const selectedPost = useSelector((state) => state.posts.allPosts.find((post) => post._id === postId));
+
     const [editImage, setEditImage] = useState({
-        uri: `${ENV.apiUrl}/post/photo/${postId}`
+        uri: `${ENV.apiUrl}/post/photo/${postId}`,
     });
     const [previousUpdate, setPreviousUpdate] = useState(selectedPost.updated);
     const [title, setTitle] = useState(selectedPost.title);
@@ -35,39 +42,38 @@ const EditPostScreen = (props) => {
         setBase64Data('');
         setImageType('');
         setIsLoading(false);
-    }
+    };
 
     const validatePost = () => {
-
         let strLength = base64Data.length;
-        let sizeInBytes = 4 * Math.ceil((strLength / 3))*0.5624896334383812;
-        let sizeInKb = sizeInBytes/1000;
+        let sizeInBytes = 4 * Math.ceil(strLength / 3) * 0.5624896334383812;
+        let sizeInKb = sizeInBytes / 1000;
         console.log(sizeInKb);
-        if(sizeInKb > 100){
+        if (sizeInKb > 100) {
             showMessage({
-                message: "Image size should be less than 150KB.",
-                type: "danger",
+                message: 'Image size should be less than 150KB.',
+                type: 'danger',
                 duration: 3000,
-                icon: { icon: "danger", position: 'left' }
+                icon: { icon: 'danger', position: 'left' },
             });
             return false;
         }
 
-        if(!title || title.length === 0){
+        if (!title || title.length === 0) {
             showMessage({
-                message: "Please enter a title.",
-                type: "danger",
+                message: 'Please enter a title.',
+                type: 'danger',
                 duration: 3000,
-                icon: { icon: "danger", position: 'left' }
+                icon: { icon: 'danger', position: 'left' },
             });
             return false;
         }
-        if(!body || body.length === 0){
+        if (!body || body.length === 0) {
             showMessage({
-                message: "Please enter a body.",
-                type: "danger",
+                message: 'Please enter a body.',
+                type: 'danger',
                 duration: 3000,
-                icon: { icon: "danger", position: 'left' }
+                icon: { icon: 'danger', position: 'left' },
             });
             return false;
         }
@@ -76,42 +82,42 @@ const EditPostScreen = (props) => {
         //     return false;
         // }
         return true;
-    }
+    };
 
     const updatePost = async () => {
         setIsLoading(true);
-        if(validatePost()){
+        if (validatePost()) {
             try {
                 await dispatch(postActions.updatePost(postId, title, body, base64Data, imageType));
                 clearForm();
                 props.navigation.goBack();
                 showMessage({
-                    message: "Your post was successfully edited.",
-                    type: "success",
+                    message: 'Your post was successfully edited.',
+                    type: 'success',
                     duration: 3000,
-                    icon: { icon: "success", position: 'left' }
+                    icon: { icon: 'success', position: 'left' },
                 });
             } catch (error) {
                 showMessage({
                     message: error.message,
-                    type: "danger",
+                    type: 'danger',
                     duration: 3000,
-                    icon: { icon: "danger", position: 'left' }
+                    icon: { icon: 'danger', position: 'left' },
                 });
-                console.log("ERROR ",error.message);
+                console.log('ERROR ', error.message);
             }
-        } 
+        }
         setIsLoading(false);
-    }
+    };
 
     const imagePickedHandler = (base64, imageType) => {
         setBase64Data(base64);
         setImageType(imageType);
-    }
+    };
 
-    return(
+    return (
         <ScrollView>
-            <KeyboardAvoidingView style={styles.screen} behavior="padding" >
+            <KeyboardAvoidingView style={styles.screen} behavior="padding">
                 <View style={styles.container}>
                     {/* { error !== null && (
                         <View style={styles.errorMsgContainer} >
@@ -120,25 +126,26 @@ const EditPostScreen = (props) => {
                         </View>
                     )} */}
 
-                    <ImgPicker 
-                        onImageTaken={imagePickedHandler} 
+                    <ImgPicker
+                        onImageTaken={imagePickedHandler}
                         editImage={editImage}
                         previousUpdate={previousUpdate}
                     />
-                    
-                    <View style={styles.labelContainer} >
-                        <Text style={styles.labelText} >Title</Text>
-                    </View>
+
+                    {/* <View style={styles.labelContainer}>
+                        <Text style={styles.labelText}>Title</Text>
+                    </View> */}
                     <View style={styles.inputContainer}>
-                        <TextInput style={styles.inputs}
-                            placeholder="Title"
-                            underlineColorAndroid='transparent'
-                            value={ title}
-                            onChangeText={(text) => setTitle(text) }
+                        <TextInput
+                            style={styles.inputs}
+                            placeholder="What are you thinking about?"
+                            underlineColorAndroid="transparent"
+                            value={title}
+                            onChangeText={(text) => setTitle(text)}
                         />
                     </View>
 
-                    <View style={styles.labelContainer} >
+                    {/* <View style={styles.labelContainer} >
                         <Text style={styles.labelText} >Body</Text>
                     </View>
                     <View style={styles.inputContainer}>
@@ -148,42 +155,31 @@ const EditPostScreen = (props) => {
                             value={body}
                             onChangeText={(text) => setBody(text) }
                         />
-                    </View>
+                    </View> */}
 
-                    <TouchableOpacity 
-                        style={[styles.buttonContainer, styles.loginButton]}
-                        onPress={updatePost}
-                    >
-
-                        { isLoading ? (
+                    <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={updatePost}>
+                        {isLoading ? (
                             <ActivityIndicator size="small" color="#fff" />
-                        )  :(
-                            <Text style={styles.loginText}>
-                                Update
-                            </Text>
-                        ) }
-                        
+                        ) : (
+                            <Text style={styles.loginText}>Update</Text>
+                        )}
                     </TouchableOpacity>
-
-                    </View>   
-                
+                </View>
             </KeyboardAvoidingView>
-
         </ScrollView>
     );
 };
 
-
 export const screenOptions = {
-    headerTitle: 'Edit Post'
-}
+    headerTitle: 'Edit Post',
+};
 
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 40
+        marginTop: 40,
     },
     container: {
         flex: 1,
@@ -191,7 +187,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
 
-    errorMsgContainer:{
+    errorMsgContainer: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
@@ -201,8 +197,8 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         borderWidth: 1,
         borderColor: '#D8000C',
-        backgroundColor: "#FFBABA" ,
-        color: "#D8000C",
+        backgroundColor: '#FFBABA',
+        color: '#D8000C',
         borderRadius: 25,
     },
     msgText: {
@@ -212,18 +208,18 @@ const styles = StyleSheet.create({
         width: 30,
         height: 30,
         // marginLeft: 15,
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
 
     labelContainer: {
         alignSelf: 'flex-start',
-        marginLeft: 16
+        marginLeft: 16,
     },
     labelText: {
         fontSize: 16,
         fontWeight: 'bold',
         padding: 5,
-        color: Colors.accent
+        color: Colors.accent,
     },
     inputContainer: {
         // borderBottomColor: '#F5FCFF',
@@ -235,7 +231,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         flexDirection: 'row',
         alignItems: 'center',
-        shadowColor: "#808080",
+        shadowColor: '#808080',
         shadowOffset: {
             width: 0,
             height: 2,
@@ -249,7 +245,7 @@ const styles = StyleSheet.create({
         marginLeft: 16,
         borderBottomColor: '#FFFFFF',
         flex: 1,
-        paddingRight: 15
+        paddingRight: 15,
     },
     buttonContainer: {
         height: 45,
@@ -259,16 +255,16 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         width: 300,
         borderRadius: 30,
-        backgroundColor: 'transparent'
+        backgroundColor: 'transparent',
     },
     loginButton: {
         backgroundColor: Colors.brightBlue,
-        shadowColor: "#808080",
+        shadowColor: '#808080',
         shadowOffset: {
             width: 0,
             height: 9,
         },
-        shadowOpacity: 0.50,
+        shadowOpacity: 0.5,
         shadowRadius: 12.35,
 
         elevation: 10,
@@ -276,6 +272,6 @@ const styles = StyleSheet.create({
     loginText: {
         color: 'white',
     },
-})
+});
 
 export default EditPostScreen;
